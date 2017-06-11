@@ -15,7 +15,7 @@ class TasksController < ApplicationController
   end
   
   def new
-    @task = Task.new(content: 'タスクを入力してください')
+    @task = Task.new(content: '')
     
   end
   
@@ -50,7 +50,7 @@ class TasksController < ApplicationController
   end
   
   def destroy
-    @task = @Task.find(params[:id])
+    @task = Task.find(params[:id])
     @task.destroy
     
     flash[:success] = 'Taskは正常に削除されました'
