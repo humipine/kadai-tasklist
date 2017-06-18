@@ -1,11 +1,17 @@
-<h1>id: <%= @task.id %> のタスク編集ページ</h1>
+<span class="center"><h1>id: <%= @task.id %> のタスク編集ページ</h1></span>
 
-<%= form_for(@task) do |f| %>
-  <%= f.label :content, 'タスク' %>
-  <%= f.text_field :content %>
+<!-- Edited on 2017/06/12 - 共通化 開始 -->
+<!--<%= form_for(@task) do |f| %>-->
+<!--  <%= f.label :content, 'タスク' %>-->
+<!--  <%= f.text_field :content %>-->
   
-  <%= f.submit '登録' %>
+<!--  <%= f.submit '登録' %>-->
   
-<% end %>
+<!--<% end %>-->
 
-<%= link_to '一覧に戻る', tasks_path %>
+<%= render 'form', task: @task %>
+
+<!-- Edited on 2017/06/12 - 共通化 終了 -->
+
+
+<!--<%= link_to '一覧に戻る', tasks_path %>-->

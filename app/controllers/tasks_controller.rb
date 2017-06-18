@@ -1,9 +1,13 @@
 class TasksController < ApplicationController
+  # Added on 2017/06/12 -- 共通化処理 (before_action) <
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  # Added on 2017/06/12 -- 共通化処理 (before_action) >
+  
   def index
     # Taskﾃｰﾌﾞﾙの全てのﾚｺｰﾄﾞを@taskｲﾝｽﾀﾝｽ変数に設定
     # View側で、この変数を利用して画面にﾃﾞｰﾀを表示する
-    @tasks = Task.all
-    
+    # @tasks = Task.all
+    @tasks = Task.all.page(params[:page])
   end
   
   def show
@@ -11,11 +15,18 @@ class TasksController < ApplicationController
     # 該当するレコードを抽出し
     # @task
     
-    @task = Task.find(params[:id])
+    # 2. Edited on 2017/06/12 -- before_action に変更 <<<
+    # 1. Edited on 2017/06/12 -- 共通化処理に変更 <<
+    # @task = Task.find(params[:id]) #1
+    # set_task #2
+    
+    # Edited on 2017/06/12 -- 共通化処理に変更 >>
+    # Edited on 2017/06/12 -- before_action に変更 >>>
+    
   end
   
   def new
-    @task = Task.new(content: '')
+    @task = Task.new(content: '', status: '')
     
   end
   
@@ -33,12 +44,23 @@ class TasksController < ApplicationController
   end
   
   def edit
-    @task = Task.find(params[:id])
+    # 2. Edited on 2017/06/12 -- before_action に変更 <<<
+    # 1. Edited on 2017/06/12 -- 共通化処理に変更 <<
+    # @task = Task.find(params[:id]) #1
+    # set_task #2
+    
+    # Edited on 2017/06/12 -- 共通化処理に変更 >>
+    # Edited on 2017/06/12 -- before_action に変更 >>>
     
   end
   
   def update
-    @task = Task.find(params[:id])
+    # 2. Edited on 2017/06/12 -- before_action に変更 <<<
+    # 1. Edited on 2017/06/12 -- 共通化処理に変更 <<
+    # @task = Task.find(params[:id]) #1
+    # set_task #2
+    # Edited on 2017/06/12 -- 共通化処理に変更 >>
+    # Edited on 2017/06/12 -- before_action に変更 >>>
     
     if @task.update(task_params)
       flash[:success] = 'Taskは正常に更新されました'
@@ -50,7 +72,13 @@ class TasksController < ApplicationController
   end
   
   def destroy
-    @task = Task.find(params[:id])
+    # 2. Edited on 2017/06/12 -- before_action に変更 <<<
+    # 1. Edited on 2017/06/12 -- 共通化処理に変更 <<
+    # @task = Task.find(params[:id]) #1
+    # set_task #2
+    # Edited on 2017/06/12 -- 共通化処理に変更 >>
+    # Edited on 2017/06/12 -- before_action に変更 >>>
+    
     @task.destroy
     
     flash[:success] = 'Taskは正常に削除されました'
@@ -67,6 +95,8 @@ class TasksController < ApplicationController
   
   # Strong Parameter
   def task_params
-    params.require(:task).permit(:content)
+    # Edit, 2017/06/12 - カラム「status」の追加によるパラメータからのstatus取得の追加 <<>>
+    params.require(:task).permit(:content, :status)
+    # params.require(:m01_status).permit(:m01_status)
   end
 end

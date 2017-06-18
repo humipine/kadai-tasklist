@@ -1,11 +1,16 @@
-<h1>タスク新規作成ページ</h1>
+<h1 class="center">タスク新規作成ページ</h1>
 
-<%= form_for(@task) do |f| %>
-  <%= f.label :content, 'タスク' %>
-  <%= f.text_field :content, placeholder: 'タスクを入力してください' %>
+<!-- Edited on 2017/06/12 - 共通化 開始 -->
+<!--<%= form_for(@task) do |f| %>-->
+<!--  <%= f.label :content, 'タスク' %>-->
+<!--  <%= f.text_field :content, placeholder: 'タスクを入力してください' %>-->
 
-  <%= f.submit '登録' %>
+<!--  <%= f.submit '登録' %>-->
   
-<% end %>
+<!--<% end %>-->
 
-<%= link_to '一覧に戻る', tasks_path %>
+<%= render 'form', task: @task %>
+
+<!-- Edited on 2017/06/12 - 共通化 終了 -->
+
+<!--<%= link_to '一覧に戻る', tasks_path %>-->
