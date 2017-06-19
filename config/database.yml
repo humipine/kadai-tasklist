@@ -47,8 +47,17 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+# Edit the following to deploy the web app to Heroku. (start) 2017/06/19
+# production:
+#   <<: *default
+#   database: kadai-tasklist_production
+#   username: kadai-tasklist
+#   password: <%= ENV['KADAI-TASKLIST_DATABASE_PASSWORD'] %>
+
 production:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: kadai-tasklist_production
   username: kadai-tasklist
   password: <%= ENV['KADAI-TASKLIST_DATABASE_PASSWORD'] %>
