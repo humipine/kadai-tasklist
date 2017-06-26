@@ -1,17 +1,3 @@
 <span class="center"><h1>id: <%= @task.id %> のタスク編集ページ</h1></span>
 
-<!-- Edited on 2017/06/12 - 共通化 開始 -->
-<!--<%= form_for(@task) do |f| %>-->
-<!--  <%= f.label :content, 'タスク' %>-->
-<!--  <%= f.text_field :content %>-->
-  
-<!--  <%= f.submit '登録' %>-->
-  
-<!--<% end %>-->
-
 <%= render 'form', task: @task %>
-
-<!-- Edited on 2017/06/12 - 共通化 終了 -->
-
-
-<!--<%= link_to '一覧に戻る', tasks_path %>-->
