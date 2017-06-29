@@ -4,13 +4,14 @@ Rails.application.routes.draw do
   root to: 'tasks#index'
   
   # Sessions
-  get 'login', to: 'session#new'
+  get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
-  delete 'logout', to: 'sessions#deestroy'
+  delete 'logout', to: 'sessions#destroy'
   
   get 'signup', to: 'users#new'
   
   resources :tasks
-  resources :users
+  resources :users, only: [:show, :create, :edit, :update, :destroy]
+  # users#index, showは必要ない・・・
   
 end
