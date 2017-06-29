@@ -8,7 +8,14 @@ class TasksController < ApplicationController
     # Taskﾃｰﾌﾞﾙの全てのﾚｺｰﾄﾞを@taskｲﾝｽﾀﾝｽ変数に設定
     # View側で、この変数を利用して画面にﾃﾞｰﾀを表示する
     # @tasks = Task.all
-    @tasks = Task.all.page(params[:page])
+    # if logged_in?
+    if logged_in?
+      @tasks = current_user.tasks.page(params[:page])
+      @user = current_user
+      
+    else
+      # @taks = nil
+    end
   end
   
   def show
@@ -27,7 +34,10 @@ class TasksController < ApplicationController
   end
   
   def new
-    @task = Task.new(content: '', status: '')
+    # @task = current_user.Task.new(content: '', status: '')
+    # @task = current_user.tasks.new(content: '', status: '')
+    @task = current_user.tasks.build(content: '', status: '')
+    @user = current_user
     
   end
   
@@ -85,14 +95,14 @@ class TasksController < ApplicationController
     @task.destroy
     
     flash[:success] = 'Taskは正常に削除されました'
-    redirect_to tasks_url
+    redirect_to root_path
     
   end
   
   private
   
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
     
   end
   

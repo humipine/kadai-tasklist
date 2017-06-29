@@ -1,5 +1,9 @@
+# ■変更内容の説明
+# (1) routeの設定を変更したため、redirect先を変更
+#
 class SessionsController < ApplicationController
   def new
+    
   end
 
   def create
@@ -9,14 +13,25 @@ class SessionsController < ApplicationController
     # セッションから取得したemailとpasswordでログインできた場合
     if login(email, password)
       flash[:success] = 'ログインに成功しました'
-      redirect_to @user
+      @user = current_user
+      
+      # Edited on 2017/06/29 (1) <<
+      # redirect_to @user
+      redirect_to tasks_path
+      
+      # Edited on 2017/06/29 (1) >>
+      
     else
       flash.now[:danger] = 'ログインに失敗しました'
       render 'new'
     end
   end
 
+  # ログアウトするとトッフページにリダイレクトする
   def destroy
+    session[:user_id] = nil
+    flash[:success] = 'ログアウトしました'
+    redirect_to root_path
   end
   
   private
@@ -32,4 +47,7 @@ class SessionsController < ApplicationController
       return false
     end
   end
+  
+
+  
 end

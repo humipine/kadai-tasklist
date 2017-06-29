@@ -11,4 +11,14 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     end
   end
+  
+  def counts(user)
+    @count_tasks = user.tasks.count
+  end
+  
+  # Strong Parameter
+  def task_params
+    params.require(:task).permit(:content, :status)
+  end
+  
 end

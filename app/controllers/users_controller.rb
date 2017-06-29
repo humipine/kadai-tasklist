@@ -1,18 +1,19 @@
-class UsersController < ApplicationControlle
+class UsersController < ApplicationController
   before_action :require_user_logged_in, only: [:index, :show, :edit, :update, :destroy]
   before_action :allow_only_the_user, only: [:edit, :update, :destroy]
   
   
   def index
-    @users = User.all.page(params[:page])
+    # @users = User.all.page(params[:page])
   end
 
   def show
-    @user = User.find(params[:id])
-    @tasks = @user.tasks.order('created_at DESC').page(params[:page])
+    if logged_in?
+      @user = User.find(params[:id])
+      @tasks = @user.tasks.order('created_at DESC').page(params[:page])
     
-    counts(@user)
-    
+      counts(@user)
+    end
   end
 
   def new
@@ -41,7 +42,7 @@ class UsersController < ApplicationControlle
     @user.destroy
     
     #セッション情報を削除
-    session[:user_id] = nill
+    session[:user_id] = nil
     
     flash[:success] = 'ユーザは正常に削除されました'
     redirect_to root_url
@@ -57,6 +58,7 @@ class UsersController < ApplicationControlle
     else
       flash.now[:danger] = 'ユーザは更新されませんでした'
       render :edit
+    end
   end
   
   private

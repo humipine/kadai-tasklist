@@ -11,4 +11,6 @@ class User < ApplicationRecord
   # パスワード用のRailsの標準機能
   has_secure_password
   
+  has_many :tasks
+  
 end
